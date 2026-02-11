@@ -1,26 +1,43 @@
 import { useState } from "react"
 
+type Data = {
+  like: number,
+  dislikes: number, 
+  reactions: string[]
+  }
 
 const App = () => {
 
-  const [Counter, setCounter] = useState({ count: 0, history: []});
 
-  const handleIncrease = () => {
-    setCounter({ count: Counter.count + 1, history: [...Counter.history, "I"] })
+  const [data, setData] = useState<Data>({
+    like: 0,
+    dislikes: 0,
+    reactions: []
+  });
+
+  const handleLike = () => {
+    setData({
+      ...data, like: data.like + 1, reactions: [...data.reactions, "L"]
+    });
   }
 
-  const handleDecrease = () => {
-    setCounter({ count: Counter.count - 1, history: [...Counter.history, "D"] });
+  const handleDislike = () => {
+    setData({
+      ...data, dislikes: data.dislikes + 1, reactions: [...data.reactions, "D"]
+    })
   }
+
+  console.log(data);
+
 
   return (
+    <>
     <div>
-      <h1>Count: {Counter.count} </h1>
-      <h2>History:{Counter.history.join(" ")} </h2>
-      <button onClick = {handleIncrease}>Increase</button> &nbsp;
-      <button onClick = {handleDecrease}>Decrease</button>
-    </div>
+        <button onClick={handleLike}>Like</button> &nbsp; 
+      <button onClick={handleDislike}>Dislike</button>
+      </div>
+      </>
   )
 }
 
-export default App
+export default App  
